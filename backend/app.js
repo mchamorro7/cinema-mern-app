@@ -18,5 +18,9 @@ app.use((req, res, next) => {
     next();
 });
 
+// Routes
+var project_routes = require('./routes/project');
+app.use('/api', project_routes);
+
 module.exports = app;
 
