@@ -16,4 +16,9 @@ RUN npm install
 COPY . .
 
 EXPOSE 4200
-CMD [ "node", "index.js" ]
+
+# This is for development
+CMD [ "npm", "run", "start.dev" ]
+
+# This is for production
+#CMD [ "npm", "run", "start" ]
