@@ -1,19 +1,26 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "express-graphql": "^0.9.0",
-    "graphql": "^14.5.8",
-    "mongoose": "^5.9.3"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+	"name": "backend",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"dependencies": {
+		"@hapi/joi": "^17.1.1",
+		"bcryptjs": "^2.4.3",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-graphql": "^0.9.0",
+		"graphql": "^14.5.8",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.9.3"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.2"
+	},
+	"scripts": {
+		"start": "node index",
+		"start.dev": "nodemon --legacy-watch index.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }
