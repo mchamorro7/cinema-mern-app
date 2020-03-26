@@ -8,12 +8,14 @@ var movieController = require('../controllers/movie');
 var router = express.Router();
 
 const verify = require('./verifyToken');
+const authentication = require('./authentication');
 
 // This middlewares are for upload things
 
 // var multipart = require('connect-multiparty');
 // var multipartMiddleware = multipart({ uploadDir: './uploads' });
 
+router.post('/checkToken', authentication);
 router.get('/', UserController.home);
 router.get('/users', verify, UserController.getUsers);
 router.post('/users/login', UserController.loginUser);

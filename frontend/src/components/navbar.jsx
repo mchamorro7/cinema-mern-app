@@ -12,6 +12,7 @@ import {
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
+import { removeFromStorage } from '../utils/storage';
 
 const NavBar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,9 +38,11 @@ const NavBar = (props) => {
                         </NavItem>
                     </Nav>
                     <NavbarText>User: </NavbarText>
-                    {/* Should have an option to logout */}
-                    <NavbarText className="ml-4">
-                        <Link to="/login">
+
+                    {/* Go to log in section and remove JWT from Local Storage */}
+
+                    <NavbarText className="ml-4" >
+                        <Link to="/login" onClick={() => removeFromStorage('auth-token')}>
                             Logout
                         </Link>
                     </NavbarText>
