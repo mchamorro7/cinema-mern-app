@@ -83,8 +83,8 @@ var controller = {
         if (!validPassword) return res.status(400).send('Email or password invalid.');
 
         // Should add a JWTs
-        const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
-        res.status(200).send(token);
+        const token = jwt.sign({ _id: user._id, user_name: user.user_name }, process.env.TOKEN_SECRET);
+        res.status(200).send({ token: token, user: user.user_name });
     },
 
 

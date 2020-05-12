@@ -7,6 +7,9 @@ import { setInStorage } from '../utils/storage';
 import ButtonLoader from './buttonLoader';
 import { toast } from 'react-toastify';
 
+import store from '../redux/store';
+import { userLogged } from '../redux/actions/userLogged';
+
 class SignIn extends Component {
 
     state = {
@@ -25,17 +28,18 @@ class SignIn extends Component {
 
     async onSignIn() {
         this.setState({ loading: true });
-        // Send HTTP POST req to backend 'api/users/login'
         await axios.post(`http://localhost:4200/api/users/login`,
             {
                 email: this.state.email,
                 user_password: this.state.password
             }).then(res => {
-                // console.log('Response#LogIn', res);
                 // console.log('Res.data#LogIn', res.data);
 
+                // Set current user
+                store.dispatch(userLogged(res.data.user));
+
                 // Set token in Local Storage and go to route '/'
-                setInStorage('auth-token', res.data);
+                setInStorage('auth-token', res.data.token);
                 this.props.history.push('/');
             })
             .catch(err => {
@@ -67,7 +71,7 @@ class SignIn extends Component {
                     <div className="row justify-content-center align-items-center d-flex h-100">
                         <div className="mx-4 col-md-4 align-middle mh-50 card">
                             <div className="card-body">
-                                <Form>
+                                <Form onSubmit={this.onSignIn}>
                                     <h1 className="h3 mb-3 font-weight-normal text-center">Log In</h1>
 
                                     <FormGroup>
@@ -76,9 +80,10 @@ class SignIn extends Component {
                                             type="email"
                                             name="email"
                                             id="email"
-                                            placeholder="Email"
+                                            placeholder="example@gmail.com"
                                             value={this.state.email}
-                                            onChange={this.onEmailChanges} />
+                                            onChange={this.onEmailChanges}
+                                            tabIndex={1} />
                                     </FormGroup>
 
                                     <FormGroup>
@@ -87,23 +92,19 @@ class SignIn extends Component {
                                             type="password"
                                             name="user_password"
                                             id="user_password"
-                                            placeholder="Password"
+                                            placeholder="*********"
                                             value={this.state.password}
                                             onChange={this.onPasswordChanges}
+                                            tabIndex={2}
                                         />
                                     </FormGroup>
 
-                                    <FormGroup check>
-                                        <Label check>
-                                            <Input type="checkbox" /> Remember
-										</Label>
+                                    <FormGroup>
+                                        <Link tabIndex={-1} to="/signup">
+                                            <Button tabIndex={-1} color="primary" size="lg" block className="my-2" type='button'>Sign up</Button>
+                                        </Link>
+                                        <ButtonLoader tabIndex={3} text="Log in" loading={this.state.loading} onEvent={this.onSignIn}></ButtonLoader>
                                     </FormGroup>
-
-                                    <Link to="/signup">
-                                        <Button color="primary" size="lg" block className="my-2">Sign up</Button>
-                                    </Link>
-
-                                    <ButtonLoader text="Log in" loading={this.state.loading} onEvent={this.onSignIn}></ButtonLoader>
                                 </Form>
                             </div>
                         </div>

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { getFromStorage } from '../utils/storage';
+import store from '../redux/store';
+import { userLogged } from '../redux/actions/userLogged';
 
 export default function withAuth(ComponentToProtect) {
     return class extends Component {
@@ -20,7 +22,8 @@ export default function withAuth(ComponentToProtect) {
                 .then(res => {
                     if (res.status === 200) {
                         this.setState({ loading: false });
-                        console.log(res.data._id);
+                        // console.log(res.data);
+                        store.dispatch(userLogged(res.data.user_name));
                     } else {
                         const error = new Error(res.error);
                         throw error;
