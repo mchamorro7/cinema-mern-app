@@ -7,7 +7,7 @@ var MovieSchema = Schema({
     name: {
         type: String,
         required: true,
-        min: 6,
+        min: 2,
         max: 255
     },
     description: {
@@ -16,6 +16,12 @@ var MovieSchema = Schema({
         min: 6,
         max: 255
     },
+    genre: {
+        type: String,
+        required: true,
+        min: 2,
+        max: 60
+    },
     release_date: {
         type: Date,
         default: Date.now
@@ -23,8 +29,8 @@ var MovieSchema = Schema({
     minutes: {
         type: Number,
         required: true,
-        min: 2,
-        max: 4
+        min: 30,
+        max: 400
     },
 });
 

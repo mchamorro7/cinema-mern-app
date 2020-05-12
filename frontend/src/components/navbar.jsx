@@ -13,6 +13,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 import { removeFromStorage } from '../utils/storage';
+import { connect } from 'react-redux';
 
 const NavBar = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,9 @@ const NavBar = (props) => {
                             </NavLink>
                         </NavItem>
                     </Nav>
-                    <NavbarText>User: </NavbarText>
+                    <NavbarText>User:
+                        <NavbarText className="pl-2 text-primary">{props.user}</NavbarText>
+                    </NavbarText>
 
                     {/* Go to log in section and remove JWT from Local Storage */}
 
@@ -51,4 +54,7 @@ const NavBar = (props) => {
         </div>
     );
 };
-export default NavBar;
+const mapStateToProps = (state) => ({
+    user: state.user.userLogged
+});
+export default connect(mapStateToProps)(NavBar);
